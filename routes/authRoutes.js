@@ -49,7 +49,7 @@ router.post('/signup',(req,res)=>{
 })
 
 // Get method for fetch the data.
-router.get('/',async(req,res)=> {    
+router.get('/data',async(req,res)=> {    
     try{
         const users = await User.find()
         res.json(users)
