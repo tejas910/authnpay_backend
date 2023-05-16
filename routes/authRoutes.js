@@ -58,23 +58,6 @@ router.get('/data',async(req,res)=> {
     }
 })
 
-router.post('/data', async(req,res)=>{
-    const data = req.body;
-
-    const collection = mongoose.
-
-    collection.insertOne(data, (err, result) => {
-      if (err) {
-        console.error('Failed to insert data into MongoDB Atlas:', err);
-        res.sendStatus(500);
-      } else {
-        console.log('Data inserted successfully:', result.ops);
-        res.sendStatus(200);
-      }
-
-    });
-})
-
 // router.put('/:id',async(res,res)=>{
 //     try{
 //         // update data.
@@ -85,5 +68,23 @@ router.post('/data', async(req,res)=>{
 //         res.send("Error"+err);
 //     }
 // })
+
+
+router.post('/user',async(req,res)=>{
+        try{
+            const {email} = req.body;
+            const foundData = await User.find({email}).exec();
+            if(foundData && foundData.length!=0){
+                res.json(foundData);
+            }
+            else{
+                res.status(404).json({ message: 'Data not found' });
+            }
+        }   
+        catch(err){
+            res.send("Error"+err);
+        }
+})
+
 
 module.exports = router;
